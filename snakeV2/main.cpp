@@ -2,20 +2,18 @@
 #include <iostream>	
 #include "Constants.h"
 #include <fstream>
+#include "World.h"
 
 using namespace std;
 
-void citire(char a[100][100], int& nl, int& nc);
-void afisare(char a[100][100], int nl, int nc);
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Snake");
 
-	char mat[100][100];
-	int nl, nc;
-	citire(mat, nl, nc);
-	afisare(mat, nl, nc);
+	World world("mat.in", "Textures\\wall.png", "Textures\\sand.png");
+
+	world.Print();
 
 	while (window.isOpen())
 	{
@@ -27,37 +25,9 @@ int main()
 		}
 
 		window.clear();
+		world.Draw(window);
 		window.display();
 	}
 
 	return 0;
-}
-
-void citire(char a[100][100], int& nl, int& nc)
-{
-	ifstream f("mat.in");
-
-	f >> nl >> nc;
-	f.get();	// new line
-
-	for (int i = 0; i < nl; i++)
-	{
-		for (int j = 0; j < nc; j++)
-		{
-			f >> a[i][j];
-		}
-		f.get();	// new line
-	}
-}
-
-void afisare(char a[100][100], int nl, int nc)
-{
-	for (int i = 0; i < nl; i++)
-	{
-		for (int j = 0; j < nc; j++)
-		{
-			cout << a[i][j];
-		}
-		cout << endl;
-	}
 }
