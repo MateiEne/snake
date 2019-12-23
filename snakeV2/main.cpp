@@ -5,16 +5,17 @@
 
 using namespace std;
 
-void citire(int a[100][100]);
-void afisare(int a[100][100]);
+void citire(char a[100][100], int& nl, int& nc);
+void afisare(char a[100][100], int nl, int nc);
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Snake");
 
-	int mat[100][100];
-	citire(mat);
-	afisare(mat);
+	char mat[100][100];
+	int nl, nc;
+	citire(mat, nl, nc);
+	afisare(mat, nl, nc);
 
 	while (window.isOpen())
 	{
@@ -32,25 +33,30 @@ int main()
 	return 0;
 }
 
-void citire(int a[100][100])
+void citire(char a[100][100], int& nl, int& nc)
 {
 	ifstream f("mat.in");
-	for (int i = 0; i < NL; i++)
+
+	f >> nl >> nc;
+	f.get();	// new line
+
+	for (int i = 0; i < nl; i++)
 	{
-		for (int j = 0; j < NC; j++)
+		for (int j = 0; j < nc; j++)
 		{
 			f >> a[i][j];
 		}
+		f.get();	// new line
 	}
 }
 
-void afisare(int a[100][100])
+void afisare(char a[100][100], int nl, int nc)
 {
-	for (int i = 0; i < NL; i++)
+	for (int i = 0; i < nl; i++)
 	{
-		for (int j = 0; j < NC; j++)
+		for (int j = 0; j < nc; j++)
 		{
-			cout << a[i][j] << " ";
+			cout << a[i][j];
 		}
 		cout << endl;
 	}
